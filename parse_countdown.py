@@ -1,9 +1,12 @@
 #!/usr/bin/python
 
 from BeautifulSoup import BeautifulSoup
-import urllib
+import urllib, sys
 
-doc = urllib.urlopen("http://accessible.countdown.tfl.gov.uk/arrivals/50980")
+if (len(sys.argv) > 1):
+  doc = urllib.urlopen("http://accessible.countdown.tfl.gov.uk/arrivals/" + sys.argv[1])
+else:
+  doc = urllib.urlopen("http://accessible.countdown.tfl.gov.uk/arrivals/50980")
 soup = BeautifulSoup(doc)
 doc.close()
 rawTable = soup.body.div.tbody
