@@ -1,7 +1,7 @@
 #!/usr/bin/python
 
 from BeautifulSoup import BeautifulSoup
-import urllib, sys
+import urllib, sys, json	
 
 if (len(sys.argv) > 1):
   doc = urllib.urlopen("http://accessible.countdown.tfl.gov.uk/arrivals/" + sys.argv[1])
@@ -32,3 +32,5 @@ for i in textGroups:
   duein = str(i[2])
   print busNum + " " + dest + " " + duein
 
+json_data = json.dumps(textGroups)
+print json_data
