@@ -3,9 +3,9 @@
 from BeautifulSoup import BeautifulSoup
 import urllib, sys, json	
 
-class Countdown(object)
+class Countdown(object):
 
-  def getCountdownJSON()
+  def getCountdownJSON():
     if (len(sys.argv) > 1):
       doc = urllib.urlopen("http://accessible.countdown.tfl.gov.uk/arrivals/" + sys.argv[1])
       doc = urllib.urlopen("http://accessible.countdown.tfl.gov.uk/arrivals/50980")
@@ -13,7 +13,7 @@ class Countdown(object)
     doc.close()
     rawTable = soup.body.div.tbody
 
-	texts = [textOf(n) for n in soup.findAll('td')]   
+    texts = [textOf(n) for n in soup.findAll('td')]   
     cleanTexts = []
     for tagText in texts[:]:
       cleanStr = str(tagText).strip().strip("&#160;")
