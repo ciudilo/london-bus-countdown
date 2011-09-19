@@ -20,13 +20,20 @@ class Countdown(object):
       cleanStr = str(tagText).strip()
       cleanTexts.append(cleanStr)
     
-    textGroups = zip(*[cleanTexts[x::3] for x in (0, 1, 2)])
+    textGroups = groupByThree(cleanTexts)
     
     json_data = json.dumps(textGroups)
     return json_data
 
 def textOf(soup):
   return u''.join(soup.findAll(text=True))
+
+def groupByThree(lst):
+	"""
+	Given input [1,2,3,4,5,6,7,8,9]
+	outputs: [(1,2,3),(4,5,6),(7,8,9)]
+	"""
+	return zip(*[lst[x::3] for x in (0, 1, 2)])
 
 def __init__(self):
 	print getCountdownJSON()
