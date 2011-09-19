@@ -1,6 +1,7 @@
 Stack:
 
 Python 2.4
+BeautifulSoup
+flup
 Nginx
 Werkzeug
-flup

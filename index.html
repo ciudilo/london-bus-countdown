@@ -3,13 +3,12 @@
 	<title>Countdown Mobile</title>
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script> 
 	<script type="text/javascript" charset="utf-8">
-	$.getJSON('shortly/shortly.fcgi', function(data) {
+	$.getJSON('shortly/' + window.location.hash.substring(1), function(data) {
 		$.each(data ,function(i, element){
 			var dueIn = element[2];
 			var newElem = $('<div>' + element[0] + ' ' + element[1] + ' ' + element[2] + '</div>').css('background-color', 
 			function(){
 				var mins = parseInt(dueIn.split(' ')[0]);
-				console.log(mins);
 				if (mins == 'due')
 					return '#FF431A'
 				if (mins <= 5)

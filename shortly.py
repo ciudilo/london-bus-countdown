@@ -12,13 +12,28 @@ class Shortly(object):
 
     def __init__(self):
       self.url_map = Map([
-        Rule('/<stop_number>', endpoint='get_json'),
+        Rule('/shortly/<int:stop_number>', endpoint='get_json'),
+        Rule('/shortly/', endpoint='get_json'),
+	Rule('/', endpoint='get_json')
       ])
 
     def dispatch_request(self, request):
-	jsonInfo = Countdown().getCountdownJSON()
-	print jsonInfo
-	return Response(jsonInfo)
+      adapter = self.url_map.bind_to_environ(request.environ)
+      try:
+	print 'trying'
+        endpoint, values = adapter.match()
+	print 'matched ' + endpoint + ' '
+	print values
+        return getattr(self, 'on_' + endpoint)(request, **values)
+      except HTTPException, e:
+        return e;
+    
+    def on_get_json(self, request, **stop_number):
+      if(len(stop_number) > 0):
+        jsonInfo = Countdown().getCountdownJSON(stop_number['stop_number'])
+      else:
+        jsonInfo = Countdown().getCountdownJSON()
+      return Response(jsonInfo)
 
     def wsgi_app(self, environ, start_response):
         request = Request(environ)
