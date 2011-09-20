@@ -1,3 +1,4 @@
+#!/usr/bin/python
 import os
 import urlparse
 from parse_countdown import Countdown
@@ -6,7 +7,6 @@ from werkzeug.routing import Map, Rule
 from werkzeug.exceptions import HTTPException, NotFound
 from werkzeug.wsgi import SharedDataMiddleware
 from werkzeug.utils import redirect
-from jinja2 import Environment, FileSystemLoader
 
 class Shortly(object):
 
@@ -27,7 +27,7 @@ class Shortly(object):
         return getattr(self, 'on_' + endpoint)(request, **values)
       except HTTPException, e:
         return e;
-    
+
     def on_get_json(self, request, **stop_number):
       if(len(stop_number) > 0):
         jsonInfo = Countdown().getCountdownJSON(stop_number['stop_number'])

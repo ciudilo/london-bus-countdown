@@ -1,7 +1,24 @@
 Stack:
 
-Python 2.4
+Python 2.4 (will work fine on 2.7 with simplejson module installed)
 BeautifulSoup
 flup
 Nginx
 Werkzeug
+
+=== Running in Dev mode ===
+
+OS X:
+
+$ easy_install werkzeug
+$ easy_install beautifulsoup
+$ easy_install simplejson
+
+$ ./shortly.py 
+ * Running on http://127.0.0.1:8080/
+ * Restarting with reloader
+
+The from another terminal tab:
+
+$ curl http://127.0.0.1:8080/
+[["E3", "Chiswick&#160;", "5 min"], ["E3", "Chiswick&#160;", "14 min"], ["E3", "Chiswick&#160;", "19 min"]]
