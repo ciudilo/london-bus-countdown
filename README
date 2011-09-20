@@ -14,11 +14,19 @@ $ easy_install werkzeug
 $ easy_install beautifulsoup
 $ easy_install simplejson
 
-$ ./shortly.py 
+$ ./shortly.py
  * Running on http://127.0.0.1:8080/
  * Restarting with reloader
 
-The from another terminal tab:
+Now you can check that web service is working.
+From another terminal tab:
 
-$ curl http://127.0.0.1:8080/
+$ curl http://127.0.0.1:8080/shortly/56320
 [["E3", "Chiswick&#160;", "5 min"], ["E3", "Chiswick&#160;", "14 min"], ["E3", "Chiswick&#160;", "19 min"]]
+
+=== Deploying in production ===
+
+You should follow Werkzeug instructions depending on your web server setup:
+http://werkzeug.pocoo.org/docs/deployment/
+
+If you choose to go with FastCGI setup you could use shorly.fcgi script included in the repository.
