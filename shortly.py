@@ -2,6 +2,7 @@
 import os
 import urlparse
 from parse_countdown import Countdown
+from cached_countdown import CachedCountdown
 from werkzeug.wrappers import Request, Response
 from werkzeug.routing import Map, Rule
 from werkzeug.exceptions import HTTPException, NotFound
@@ -14,8 +15,9 @@ class Shortly(object):
       self.url_map = Map([
         Rule('/shortly/<int:stop_number>', endpoint='get_json'),
         Rule('/shortly/', endpoint='get_json'),
-	Rule('/', endpoint='get_json')
+		   Rule('/', endpoint='get_json')
       ])
+      self.countdown = CachedCountdown()
 
     def dispatch_request(self, request):
       adapter = self.url_map.bind_to_environ(request.environ)
@@ -30,9 +32,9 @@ class Shortly(object):
 
     def on_get_json(self, request, **stop_number):
       if(len(stop_number) > 0):
-        jsonInfo = Countdown().getCountdownJSON(stop_number['stop_number'])
+        jsonInfo = self.countdown.getCountdownJSON(stop_number['stop_number'])
       else:
-        jsonInfo = Countdown().getCountdownJSON()
+        jsonInfo = self.countdown.getCountdownJSON()
       return Response(jsonInfo)
 
     def wsgi_app(self, environ, start_response):
