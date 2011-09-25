@@ -12,7 +12,7 @@ class CachedCountdown(Countdown):
 	def __init__(self):
 		print "init cached countdown"
 
-	@countdown_cache.cache('getCountdownJSON', expire=60)
+	@countdown_cache.cache('getCountdownJSON', expire=15)
 	def getCountdownJSON(self, *stop_number):
 		json_data = Countdown.getCountdownJSON(self, *stop_number)
 		return json_data
