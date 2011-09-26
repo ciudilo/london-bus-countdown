@@ -2,6 +2,8 @@
 import os
 import urlparse
 from parse_countdown import Countdown
+from nearest_stop import Stops
+
 from cached_countdown import CachedCountdown
 from werkzeug.wrappers import Request, Response
 from werkzeug.routing import Map, Rule
@@ -14,18 +16,20 @@ class Shortly(object):
     def __init__(self):
       self.url_map = Map([
         Rule('/shortly/<int:stop_number>', endpoint='get_json'),
+        Rule('/shortly/<lat>/<lon>/<limit>', endpoint='get_nearest_stops'),
         Rule('/shortly/', endpoint='get_json'),
 		   Rule('/', endpoint='get_json')
       ])
       self.countdown = CachedCountdown()
+      self.nearest = Stops()
 
     def dispatch_request(self, request):
       adapter = self.url_map.bind_to_environ(request.environ)
       try:
-	print 'trying'
+        #print 'trying'
         endpoint, values = adapter.match()
-	print 'matched ' + endpoint + ' '
-	print values
+	      #print 'matched ' + endpoint + ' '
+	      #print values
         return getattr(self, 'on_' + endpoint)(request, **values)
       except HTTPException, e:
         return e;
@@ -35,6 +39,10 @@ class Shortly(object):
         jsonInfo = self.countdown.getCountdownJSON(stop_number['stop_number'])
       else:
         jsonInfo = self.countdown.getCountdownJSON()
+      return Response(jsonInfo)
+    
+    def on_get_nearest_stops(self, request, lat, lon, limit):
+      jsonInfo = self.nearest.get_nearest_stops(lat, lon, limit)
       return Response(jsonInfo)
 
     def wsgi_app(self, environ, start_response):
