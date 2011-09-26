@@ -3,26 +3,40 @@
 	<title>Countdown Mobile</title>
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script> 
 	<script type="text/javascript" charset="utf-8">
-	$.getJSON('shortly/' + window.location.hash.substring(1), function(data) {
-		$.each(data ,function(i, element){
-			var dueIn = element[2];
-			var newElem = $('<div>' + element[0] + ' ' + element[1] + ' ' + element[2] + '</div>').css('background-color', 
-			function(){
-				var minsStr = (dueIn.split(' ')[0]);
-				if (minsStr.toString() == 'due')
-					return '#FF431A'
-				var mins = parseInt(dueIn.split(' ')[0]);
-				if (mins <= 5)
-                                        return '#A3AD30'
-				if (mins > 5 && mins < 10)
-					return '#F6E27B'
-				if (mins >= 10)
-					return '#82ADA9'
-				});
-			$('body')
-			.append(newElem);
+	if (window.location.hash == "")
+	{
+		$.getJSON('shortly/' + window.location.hash.substring(1), function(data) {
+			$.each(data ,function(i, element){
+				var dueIn = element[2];
+				var newElem = $('<div>' + element[0] + ' ' + element[1] + ' ' + element[2] + '</div>').css('background-color', 
+				function(){
+					var minsStr = (dueIn.split(' ')[0]);
+					if (minsStr.toString() == 'due')
+						return '#FF431A'
+					var mins = parseInt(dueIn.split(' ')[0]);
+					if (mins <= 5)
+	                                        return '#A3AD30'
+					if (mins > 5 && mins < 10)
+						return '#F6E27B'
+					if (mins >= 10)
+						return '#82ADA9'
+					});
+				$('body')
+				.append(newElem);
+			});
 		});
-	}); </script>
+	} 
+	else
+	{
+		navigator.geolocation.getCurrentPosition(function(position) { 
+		$.getJSON('shortly/'+ position.coords.latitude + '/' + position.coords.longitude  + '/' + '10', function(data){
+			$.each(data ,function(i, element){
+				$('body')
+				.append('<a href=/#' + element.id + '>' + element.name + '</a><br />');
+				});
+			});
+		});
+	}</script>
 	<meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0" />
 </head>
 	<style type="text/css">
