@@ -10,8 +10,6 @@ class Stops(object):
     
     nearestStops = list( stops.find({ "loc": { "$near" : [ float(lat), float(lon) ] } }).limit(int(limit)) ) 
     
-    json_data= []
-    #for stop in nearestStops:
     json_data = json.dumps(nearestStops, default=json_util.default)
    
     return json_data
