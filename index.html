@@ -8,9 +8,10 @@
 			var dueIn = element[2];
 			var newElem = $('<div>' + element[0] + ' ' + element[1] + ' ' + element[2] + '</div>').css('background-color', 
 			function(){
-				var mins = parseInt(dueIn.split(' ')[0]);
-				if (mins == 'due')
+				var minsStr = (dueIn.split(' ')[0]);
+				if (minsStr.toString() == 'due')
 					return '#FF431A'
+				var mins = parseInt(dueIn.split(' ')[0]);
 				if (mins <= 5)
                                         return '#A3AD30'
 				if (mins > 5 && mins < 10)
