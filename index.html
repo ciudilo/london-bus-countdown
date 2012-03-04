@@ -3,7 +3,7 @@
 	<title>Countdown Mobile</title>
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script> 
 	<script type="text/javascript" charset="utf-8">
-	if (window.location.hash == "")
+	if (window.location.hash != '')
 	{
 		$.getJSON('shortly/' + window.location.hash.substring(1), function(data) {
 			$.each(data ,function(i, element){

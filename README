@@ -26,6 +26,12 @@ From another terminal tab:
 $ curl http://127.0.0.1:8080/shortly/56320
 [["E3", "Chiswick&#160;", "5 min"], ["E3", "Chiswick&#160;", "14 min"], ["E3", "Chiswick&#160;", "19 min"]]
 
+or
+
+Alternatively open below URL in your browser:
+http://127.0.0.1:8080/index.html#56320
+
+
 === Deploying in production ===
 
 You should follow Werkzeug instructions depending on your web server setup:

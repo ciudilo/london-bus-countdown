@@ -18,7 +18,7 @@ class Shortly(object):
         Rule('/shortly/<int:stop_number>', endpoint='get_json'),
         Rule('/shortly/<lat>/<lon>/<limit>', endpoint='get_nearest_stops'),
         Rule('/shortly/', endpoint='get_json'),
-		   Rule('/', endpoint='get_json')
+        Rule('/', endpoint='get_json')
       ])
       self.countdown = CachedCountdown()
       self.nearest = Stops()
@@ -58,7 +58,7 @@ def create_app(with_static=True):
     app = Shortly()
     if with_static:
         app.wsgi_app = SharedDataMiddleware(app.wsgi_app, {
-            '/static':  os.path.join(os.path.dirname(__file__), 'static')
+            '/':  os.path.relpath(os.path.dirname(__file__))
         })
     return app
 
