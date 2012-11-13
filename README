@@ -15,6 +15,7 @@ $ easy_install werkzeug
 $ easy_install beautifulsoup
 $ easy_install simplejson
 $ easy_install beaker
+$ easy_install pymongo
 
 $ ./shortly.py
  * Running on http://127.0.0.1:8080/
