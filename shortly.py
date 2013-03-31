@@ -4,7 +4,7 @@ import urlparse
 from parse_countdown import Countdown
 from nearest_stop import Stops
 
-from cached_countdown import CachedCountdown
+from cached_countdown import Countdown
 from werkzeug.wrappers import Request, Response
 from werkzeug.routing import Map, Rule
 from werkzeug.exceptions import HTTPException, NotFound
@@ -20,7 +20,7 @@ class Shortly(object):
         Rule('/shortly/', endpoint='get_json'),
 		   Rule('/', endpoint='get_json')
       ])
-      self.countdown = CachedCountdown()
+      self.countdown = Countdown()
       self.nearest = Stops()
 
     def dispatch_request(self, request):
